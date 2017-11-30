@@ -2,16 +2,18 @@ package demo.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import demo.dao.UserDao;
 import demo.entity.User;
 import demo.service.UserService;
 
-
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;
-	
+	@Autowired
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}

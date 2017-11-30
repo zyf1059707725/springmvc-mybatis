@@ -32,7 +32,7 @@
 		<property name="dataSource" ref="dataSource"></property>	
 		<property name="mapperLocations">
 			<array>
-				<value>classpath:demo/dao/mapper/UserMapper.xml</value>
+				<value>classpath:demo/dao/mapper/*Mapper.xml</value>
 			</array>
 		</property>
 		<property name="typeAliasesPackage" value="demo.entity"/>
@@ -42,21 +42,27 @@
 		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 		
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
-		
-	<!-- 配置事务，使用代理的方式 -->
-	<bean id="transactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">  
-	    <property name="transactionManager" ref="transactionManager"></property>  
-	    <property name="transactionAttributes">  
-	        <props>  
-	            <prop key="add*">PROPAGATION_REQUIRED,-Exception</prop>  
-	            <prop key="modify*">PROPAGATION_REQUIRED,-myException</prop>  
-	            <prop key="del*">PROPAGATION_REQUIRED</prop>  
-	            <prop key="*">PROPAGATION_REQUIRED</prop>  
-	        </props>  
-	    </property>  
-	</bean> 
+	
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		 <!-- the transactional semantics... -->
+		<tx:attributes>
+		  <!-- all methods starting with 'get' are read-only -->
+			<tx:method name="get*" read-only="true"/>
+			<!-- other methods use the default transaction settings (see below) -->
+		  	<tx:method name="add*" propagation="REQUIRED"/>
+		  	<tx:method name="del*" propagation="REQUIRED"/>
+		  	<tx:method name="update*" propagation="REQUIRED"/>
+		  	<tx:method name="*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut id="bizTransaction" expression="execution(* demo.service.*.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="bizTransaction"/>
+	</aop:config>
+	
 	
 </beans>
