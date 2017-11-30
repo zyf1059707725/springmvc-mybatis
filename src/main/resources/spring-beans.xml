@@ -15,5 +15,5 @@
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 	<context:annotation-config/>
-	<context:component-scan base-package="demo.dao.impl,demo.service.impl"/>
+	<context:component-scan base-package="demo.dao,demo.service.impl"/>
 </beans>

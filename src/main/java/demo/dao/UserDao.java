@@ -2,15 +2,12 @@ package demo.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import demo.entity.User;
 
-
+@Repository("userDao")
 public interface UserDao {
-	static final String GETUSER = "getUser";
-	static final String GETALLUSER = "getAllUser";
-	static final String ADDUSER = "addUser";
-	static final String DELUSER = "delUser";
-	static final String UPDATEUSER = "updateUser";
 
 	public User getUser(String id);
 	

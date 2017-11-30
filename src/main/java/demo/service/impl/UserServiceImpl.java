@@ -2,7 +2,10 @@ package demo.service.impl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import demo.dao.UserDao;
@@ -13,7 +16,9 @@ import demo.service.UserService;
 public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;
-	@Autowired
+	//@Autowired
+	//@Qualifier("userDao")
+	@Resource(name="userDao")
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
