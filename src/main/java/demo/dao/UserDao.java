@@ -8,7 +8,7 @@ import demo.entity.User;
 
 @Repository("userDao")
 public interface UserDao {
-
+    
 	public User getUser(String id);
 	
 	public List<User> getAllUser();

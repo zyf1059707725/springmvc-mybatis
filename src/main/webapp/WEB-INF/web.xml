@@ -2,12 +2,21 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>springmvc-mybatis</display-name>
   
+  <!-- 日志 -->
+  <context-param>    
+  	<param-name>log4jConfigLocation</param-name>    
+    <param-value>classpath:log4j.properties</param-value>    
+  </context-param>   
+  <listener>  
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>  
+  </listener> 
+  
  	<!--设置Bean定义文件的位置和名称 -->
+ 	<!-- 这段的配置主要是为其加载spring-beans.xml、spring-common.xml、springmvc-config.xml这三个文件能够成功 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:spring-*.xml</param-value>
-	</context-param>
-	
+	</context-param>	
 	<!--设置监听器-->
 	<listener>
 		<listener-class>
